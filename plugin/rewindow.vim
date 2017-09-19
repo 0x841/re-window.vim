@@ -22,7 +22,7 @@ augroup END
 let s:quit_file_info_stack = []
 
 let s:split_pos_cmds = [
-\   '"ACCORDING TO THE WINDOW SIZE"',
+\   '"ACCORDING TO THE CURRENT WINDOW SIZE"',
 \   'leftabove',
 \   'rightbelow',
 \   'vertical leftabove',
