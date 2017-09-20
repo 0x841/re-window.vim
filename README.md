@@ -1,6 +1,6 @@
 
 # Re-window.vim
-This plugin reopens the last closed window.
+This plugin reopens the last closed window in vim.
 
 This is released under the MIT License, see LICENSE .
 
