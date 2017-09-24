@@ -104,7 +104,7 @@ endfunction
 function! s:split_type(args) abort
     let l:split_cmd_id = (len(a:args) > 0) ? a:args[0] - 1 : 0
     if (type(l:split_cmd_id) == v:t_number) && exists('s:split_pos_cmds[l:split_cmd_id]') && (l:split_cmd_id != 0)
-        return s:split_cmd_id[l:split_cmd_id]
+        return s:split_pos_cmds[l:split_cmd_id]
     endif
 
     let l:win_id = win_getid()
