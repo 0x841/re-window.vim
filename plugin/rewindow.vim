@@ -66,7 +66,7 @@ function! s:windows_close(close_cmd) abort
 
     if tabpagenr() == l:pre_tab_id
         for l:win_id in gettabinfo(tabpagenr())[0]['windows']
-            if !exists('l:pre_file_info[l:win_id]')
+            if exists('l:pre_file_info[l:win_id]')
                 call remove(l:pre_file_info, l:win_id)
             endif
         endfor
