@@ -14,28 +14,28 @@ endif
 let s:save_cpo = &cpo
 set cpo&vim
 
-nnoremap <Plug>(rewindow-reopen)   :<C-U>call rewindow#reopen()<CR>
-xnoremap <Plug>(rewindow-reopen)   :<C-U>call rewindow#reopen()<CR>
-nnoremap <Plug>(rewindow-reopen-h) :<C-U>call rewindow#reopen('h')<CR>
-xnoremap <Plug>(rewindow-reopen-h) :<C-U>call rewindow#reopen('h')<CR>
-nnoremap <Plug>(rewindow-reopen-j) :<C-U>call rewindow#reopen('j')<CR>
-xnoremap <Plug>(rewindow-reopen-j) :<C-U>call rewindow#reopen('j')<CR>
-nnoremap <Plug>(rewindow-reopen-k) :<C-U>call rewindow#reopen('k')<CR>
-xnoremap <Plug>(rewindow-reopen-k) :<C-U>call rewindow#reopen('k')<CR>
-nnoremap <Plug>(rewindow-reopen-l) :<C-U>call rewindow#reopen('l')<CR>
-xnoremap <Plug>(rewindow-reopen-l) :<C-U>call rewindow#reopen('l')<CR>
-nnoremap <Plug>(rewindow-reopen-H) :<C-U>call rewindow#reopen('H')<CR>
-xnoremap <Plug>(rewindow-reopen-H) :<C-U>call rewindow#reopen('H')<CR>
-nnoremap <Plug>(rewindow-reopen-J) :<C-U>call rewindow#reopen('J')<CR>
-xnoremap <Plug>(rewindow-reopen-J) :<C-U>call rewindow#reopen('J')<CR>
-nnoremap <Plug>(rewindow-reopen-K) :<C-U>call rewindow#reopen('K')<CR>
-xnoremap <Plug>(rewindow-reopen-K) :<C-U>call rewindow#reopen('K')<CR>
-nnoremap <Plug>(rewindow-reopen-L) :<C-U>call rewindow#reopen('L')<CR>
-xnoremap <Plug>(rewindow-reopen-L) :<C-U>call rewindow#reopen('L')<CR>
-nnoremap <Plug>(rewindow-only)     :<C-U>call rewindow#only()<CR>
-xnoremap <Plug>(rewindow-only)     :<C-U>call rewindow#only()<CR>
-nnoremap <Plug>(rewindow-tabclose) :<C-U>call rewindow#tabclose()<CR>
-xnoremap <Plug>(rewindow-tabclose) :<C-U>call rewindow#tabclose()<CR>
+nnoremap <silent> <Plug>(rewindow-reopen)   :<C-U>call rewindow#reopen()<CR>
+xnoremap <silent> <Plug>(rewindow-reopen)   :<C-U>call rewindow#reopen()<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-h) :<C-U>call rewindow#reopen('h')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-h) :<C-U>call rewindow#reopen('h')<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-j) :<C-U>call rewindow#reopen('j')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-j) :<C-U>call rewindow#reopen('j')<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-k) :<C-U>call rewindow#reopen('k')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-k) :<C-U>call rewindow#reopen('k')<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-l) :<C-U>call rewindow#reopen('l')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-l) :<C-U>call rewindow#reopen('l')<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-H) :<C-U>call rewindow#reopen('H')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-H) :<C-U>call rewindow#reopen('H')<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-J) :<C-U>call rewindow#reopen('J')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-J) :<C-U>call rewindow#reopen('J')<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-K) :<C-U>call rewindow#reopen('K')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-K) :<C-U>call rewindow#reopen('K')<CR>
+nnoremap <silent> <Plug>(rewindow-reopen-L) :<C-U>call rewindow#reopen('L')<CR>
+xnoremap <silent> <Plug>(rewindow-reopen-L) :<C-U>call rewindow#reopen('L')<CR>
+nnoremap <silent> <Plug>(rewindow-only)     :<C-U>call rewindow#only()<CR>
+xnoremap <silent> <Plug>(rewindow-only)     :<C-U>call rewindow#only()<CR>
+nnoremap <silent> <Plug>(rewindow-tabclose) :<C-U>call rewindow#tabclose()<CR>
+xnoremap <silent> <Plug>(rewindow-tabclose) :<C-U>call rewindow#tabclose()<CR>
 
 augroup rewindow
     autocmd!
