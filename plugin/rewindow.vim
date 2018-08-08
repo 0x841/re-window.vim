@@ -14,29 +14,51 @@ endif
 let s:save_cpo = &cpo
 set cpo&vim
 
-augroup reopen_window
+nnoremap <Plug>(rewindow-reopen)   :<C-U>call rewindow#reopen()<CR>
+xnoremap <Plug>(rewindow-reopen)   :<C-U>call rewindow#reopen()<CR>
+nnoremap <Plug>(rewindow-reopen-h) :<C-U>call rewindow#reopen('h')<CR>
+xnoremap <Plug>(rewindow-reopen-h) :<C-U>call rewindow#reopen('h')<CR>
+nnoremap <Plug>(rewindow-reopen-j) :<C-U>call rewindow#reopen('j')<CR>
+xnoremap <Plug>(rewindow-reopen-j) :<C-U>call rewindow#reopen('j')<CR>
+nnoremap <Plug>(rewindow-reopen-k) :<C-U>call rewindow#reopen('k')<CR>
+xnoremap <Plug>(rewindow-reopen-k) :<C-U>call rewindow#reopen('k')<CR>
+nnoremap <Plug>(rewindow-reopen-l) :<C-U>call rewindow#reopen('l')<CR>
+xnoremap <Plug>(rewindow-reopen-l) :<C-U>call rewindow#reopen('l')<CR>
+nnoremap <Plug>(rewindow-reopen-H) :<C-U>call rewindow#reopen('H')<CR>
+xnoremap <Plug>(rewindow-reopen-H) :<C-U>call rewindow#reopen('H')<CR>
+nnoremap <Plug>(rewindow-reopen-J) :<C-U>call rewindow#reopen('J')<CR>
+xnoremap <Plug>(rewindow-reopen-J) :<C-U>call rewindow#reopen('J')<CR>
+nnoremap <Plug>(rewindow-reopen-K) :<C-U>call rewindow#reopen('K')<CR>
+xnoremap <Plug>(rewindow-reopen-K) :<C-U>call rewindow#reopen('K')<CR>
+nnoremap <Plug>(rewindow-reopen-L) :<C-U>call rewindow#reopen('L')<CR>
+xnoremap <Plug>(rewindow-reopen-L) :<C-U>call rewindow#reopen('L')<CR>
+nnoremap <Plug>(rewindow-only)     :<C-U>call rewindow#only()<CR>
+xnoremap <Plug>(rewindow-only)     :<C-U>call rewindow#only()<CR>
+nnoremap <Plug>(rewindow-tabclose) :<C-U>call rewindow#tabclose()<CR>
+xnoremap <Plug>(rewindow-tabclose) :<C-U>call rewindow#tabclose()<CR>
+
+augroup rewindow
     autocmd!
     autocmd QuitPre * call <SID>quit_file()
 augroup END
 
 let s:quit_file_info_stack = []
 
-let s:split_pos_cmds = [
-\   '"ACCORDING TO THE CURRENT WINDOW SIZE"',
-\   'leftabove',
-\   'rightbelow',
-\   'vertical leftabove',
-\   'vertical rightbelow',
-\   'topleft',
-\   'botright',
-\   'vertical topleft',
-\   'vertical botright'
-\]
+let s:split_pos_cmds = {
+\   'k' : 'leftabove',
+\   'j' : 'rightbelow',
+\   'h' : 'vertical leftabove',
+\   'l' : 'vertical rightbelow',
+\   'K' : 'topleft',
+\   'J' : 'botright',
+\   'H' : 'vertical topleft',
+\   'L' : 'vertical botright'
+\}
 
 function! s:quit_file() abort
     let l:quit_file_path =  expand('<afile>:p')
     let l:same_as_last_file = (len(s:quit_file_info_stack) > 0)
-                         \ && (l:quit_file_path == s:quit_file_info_stack[-1]['filepath'])
+                         \ && (l:quit_file_path == s:quit_file_info_stack[-1].filepath)
 
     if !l:same_as_last_file && filereadable(l:quit_file_path)
         call add(s:quit_file_info_stack, s:current_file_info(l:quit_file_path))
@@ -56,7 +78,7 @@ function! s:windows_close(close_cmd) abort
     let l:pre_tab_id = tabpagenr()
     let l:pre_file_info = {}
 
-    for l:win_id in gettabinfo(l:pre_tab_id)[0]['windows']
+    for l:win_id in gettabinfo(l:pre_tab_id)[0].windows
         call win_gotoid(l:win_id)
         let pre_file_info[l:win_id] = s:current_file_info(expand('%:p'))
     endfor
@@ -65,7 +87,7 @@ function! s:windows_close(close_cmd) abort
     execute a:close_cmd
 
     if tabpagenr() == l:pre_tab_id
-        for l:win_id in gettabinfo(tabpagenr())[0]['windows']
+        for l:win_id in gettabinfo(tabpagenr())[0].windows
             if exists('l:pre_file_info[l:win_id]')
                 call remove(l:pre_file_info, l:win_id)
             endif
@@ -85,26 +107,25 @@ function! rewindow#tabclose() abort
     call s:windows_close('tabclose')
 endfunction
 
-function! rewindow#reopen_window(...) abort
+function! rewindow#reopen(...) abort
     if !s:is_quit_file_openable()
         return
     endif
 
     let l:file_info = remove(s:quit_file_info_stack, -1)
 
-    if l:file_info['is_help']
-        call s:open_help(l:file_info['filepath'], s:split_type(a:000))
+    if l:file_info.is_help
+        call s:open_help(l:file_info.filepath, s:split_type(get(a:000, 0)))
     else
-        call s:open_file(l:file_info['filepath'], s:split_type(a:000))
+        call s:open_file(l:file_info.filepath, s:split_type(get(a:000, 0)))
     endif
 
-    call winrestview(l:file_info['win_info'])
+    call winrestview(l:file_info.win_info)
 endfunction
 
-function! s:split_type(args) abort
-    let l:split_cmd_id = (len(a:args) > 0) ? a:args[0] - 1 : 0
-    if (type(l:split_cmd_id) == v:t_number) && exists('s:split_pos_cmds[l:split_cmd_id]') && (l:split_cmd_id != 0)
-        return s:split_pos_cmds[l:split_cmd_id]
+function! s:split_type(arg) abort
+    if has_key(s:split_pos_cmds, a:arg)
+        return s:split_pos_cmds[a:arg]
     endif
 
     let l:win_id = win_getid()
@@ -123,7 +144,7 @@ function! s:is_quit_file_openable() abort
         return 0
     endif
 
-    let l:filepath = s:quit_file_info_stack[-1]['filepath']
+    let l:filepath = s:quit_file_info_stack[-1].filepath
     if !filereadable(l:filepath)
         echohl Error
         echo fnamemodify(l:filepath, ':~') 'is not exist.'
