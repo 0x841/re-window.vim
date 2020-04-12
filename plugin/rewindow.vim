@@ -80,7 +80,7 @@ function! s:windows_close(close_cmd) abort
 
     for l:win_id in gettabinfo(l:pre_tab_id)[0].windows
         call win_gotoid(l:win_id)
-        let pre_file_info[l:win_id] = s:current_file_info(expand('%:p'))
+        let l:pre_file_info[l:win_id] = s:current_file_info(expand('%:p'))
     endfor
     call win_gotoid(l:current_win_id)
 
